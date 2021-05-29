@@ -60,3 +60,10 @@ def test_can_not_write_denied():
     with pytest.raises(ValueError) as excinfo:
         download(target_page, temp_dir_name)
     assert 'Can not create a directory {0}'.format(target_dir) in str(excinfo.value)
+
+def test_dir_not_exists():
+    target_page = 'https://ru.hexlet.io/courses'
+    target_dir ='/sys/ru-hexlet-io_files'
+    with pytest.raises(ValueError) as excinfo:
+        download(target_page, target_dir)
+    assert 'Dir {0} does not exist'.format(target_dir) in str(excinfo.value)

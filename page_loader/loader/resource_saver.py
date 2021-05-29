@@ -20,7 +20,7 @@ def save(file_path: str, file_content: str):
         with open(file_path, 'w') as dest_file:
             dest_file.write(file_content)
     except (IOError, PermissionError) as error:
-        logger.error('Could not save a file %s'(error))
+        logger.error('Could not save a file %s', error)
         raise ValueError('Can not write to {0}'.format(file_path))
 
 
@@ -43,3 +43,15 @@ def prepare_dir(path: str):
                 error,
             )
             raise ValueError('Can not create a directory {0}'.format(path))
+
+
+def dir_exists(path: str) -> bool:
+    """[summary].
+
+    Args:
+        path (str): [description]
+
+    Returns:
+        bool: [description]
+    """
+    return os.path.exists(path)

@@ -12,13 +12,18 @@ def download(page_url: str, dist_dir: str) -> str:
     """Download specified page in destination folder and returns a path to the file.
 
     Args:
-        page_url (str): Page location.
-        dist_dir (str): Destination derictory.
+        page_url (str): [description]
+        dist_dir (str): [description]
+
+    Raises:
+        ValueError: [description]
 
     Returns:
-        str: Path to the downloaded file.
+        str: [description]
     """
     logger = logging.getLogger(__name__)
+    if not resource_saver.dir_exists(dist_dir):
+        raise ValueError('Dir {0} does not exist'.format(dist_dir))
     logger.info('Page {0} loading is started.'.format(page_url))
     page_content = resourse_loader.download(page_url)
     url_compoents = urlparse(page_url)
