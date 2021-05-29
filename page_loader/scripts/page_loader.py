@@ -1,9 +1,12 @@
 """Page-loader entry point."""
 
 import argparse
+import logging
 import sys
 
 from page_loader.loader.page import download
+
+logger = logging.getLogger(__name__)
 
 
 def main():
@@ -18,7 +21,7 @@ def main():
     try:
         output_file = download(args.page_url, args.dist_dir)
     except ValueError as error:
-        print(error)
+        logger.critical(error)
         sys.exit(0)
     print(output_file)
 

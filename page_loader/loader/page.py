@@ -1,12 +1,11 @@
 """Page loader."""
-import os
-import re
+import logging
 from urllib.parse import urlparse
 
-import requests
-
-HTTP_RESPONSE_OK = 200
-CHUNK_SIZE = 128
+import page_loader.content.parser as content_parser
+import page_loader.loader.resource_saver as resource_saver
+import page_loader.loader.resourse_loader as resourse_loader
+from page_loader.path.resolver import Resolver
 
 
 def download(page_url: str, dist_dir: str) -> str:
@@ -16,39 +15,21 @@ def download(page_url: str, dist_dir: str) -> str:
         page_url (str): Page location.
         dist_dir (str): Destination derictory.
 
-    Raises:
-        ValueError: Error description
-
     Returns:
         str: Path to the downloaded file.
     """
-    target_page = requests.get(page_url)
-    if target_page.status_code != HTTP_RESPONSE_OK:
-        raise ValueError('Target page {0} is not available '.format(page_url))
-    file_path = get_target_file_name(page_url, dist_dir)
-    try:
-        with open(file_path, 'wb') as dest_file:
-            for chunk in target_page.iter_content(chunk_size=CHUNK_SIZE):
-                dest_file.write(chunk)
-    except (IOError, PermissionError):
-        raise ValueError('Can not write to {0}'.format(file_path))
-    return file_path
-
-
-def get_target_file_name(page_url: str, dist_dir: str) -> str:
-    """Generate target file path.
-
-    Args:
-        page_url (str): Page location.
-        dist_dir (str): Destination derictory.
-
-    Returns:
-        str: File path
-    """
-    url_components = urlparse(page_url)
-    file_name = re.sub(
-        r'[^0-9a-zA-Z]',
-        '-',
-        url_components.netloc + url_components.path,
+    logger = logging.getLogger(__name__)
+    logger.info('Page {0} loading is started.'.format(page_url))
+    page_content = resourse_loader.download(page_url)
+    url_compoents = urlparse(page_url)
+    path_resolver = Resolver(url_compoents.netloc, dist_dir)
+    file_path = path_resolver.get_full_document_path(url_compoents.path)
+    page_content = content_parser.parse(
+        page_content,
+        path_resolver,
+        url_compoents,
     )
-    return '{0}.html'.format(os.path.join(dist_dir, file_name))
+    if not page_url.endswith('.html'):
+        file_path = '{0}.html'.format(file_path)
+    resource_saver.save(file_path, page_content)
+    return file_path
