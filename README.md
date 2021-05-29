@@ -9,4 +9,4 @@
 * pip install git+https://github.com/Denisof/python-project-lvl3.git
 
 # Usage
-[![asciicast](https://asciinema.org/a/khJh7TkuCjhbaqIdhA5wzNDmr.svg)](https://asciinema.org/a/khJh7TkuCjhbaqIdhA5wzNDmr)
+[![asciicast](https://asciinema.org/a/ED9rcd5JNCiS1ZyDpDFf5dL8l.svg)](https://asciinema.org/a/ED9rcd5JNCiS1ZyDpDFf5dL8l)

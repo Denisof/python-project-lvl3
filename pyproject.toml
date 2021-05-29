@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "python-project-lvl3"
-version = "1.0.0"
+version = "1.1.0"
 description = ""
 authors = ["DENYSUA <dloschakov@gmail.com>"]
 packages = [
