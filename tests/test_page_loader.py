@@ -56,7 +56,7 @@ def test_page_not_found():
 def test_can_not_write_denied():
     target_page = 'https://ru.hexlet.io/courses'
     temp_dir_name = '/sys'
-    target_dir ='/sys/ru-hexlet-io_files'
+    target_dir ='/sys/ru-hexlet-io-courses_files'
     with pytest.raises(ValueError) as excinfo:
         download(target_page, temp_dir_name)
     assert 'Can not create a directory {0}'.format(target_dir) in str(excinfo.value)

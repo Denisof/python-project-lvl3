@@ -15,14 +15,16 @@ class Resolver(object):
     _base_path = None
     _hyphen = '-'
 
-    def __init__(self, netloc: str, dest_dir: str) -> None:
+    def __init__(self, netloc: str, path: str, dest_dir: str) -> None:
         """[summary].
 
         Args:
             netloc (str): [description]
+            path (str): [description]
             dest_dir (str): [description]
         """
         self.netloc = netloc
+        self.path = path
         self.dest_dir = dest_dir
 
     def get_full_document_path(self, path) -> str:
@@ -71,7 +73,7 @@ class Resolver(object):
             str: [description]
         """
         asset_dir = '{0}{1}'.format(
-            self._hyphenize(self.netloc),
+            self._hyphenize(self.netloc + self.path.rstrip(os.path.sep)),
             self._files_postfix,
         )
         if not full:

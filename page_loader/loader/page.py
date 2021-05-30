@@ -27,7 +27,11 @@ def download(page_url: str, dist_dir: str) -> str:
     logger.info('Page {0} loading is started.'.format(page_url))
     page_content = resourse_loader.download(page_url)
     url_compoents = urlparse(page_url)
-    path_resolver = Resolver(url_compoents.netloc, dist_dir)
+    path_resolver = Resolver(
+        url_compoents.netloc,
+        url_compoents.path,
+        dist_dir,
+    )
     file_path = path_resolver.get_full_document_path(url_compoents.path)
     page_content = content_parser.parse(
         page_content,
