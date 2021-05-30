@@ -51,16 +51,20 @@ class Resolver(object):
             dict: [description]
         """
         split_path = os.path.split(self.netloc + path)
-        asset_dir_absolute = self.get_asset_folder_path()
-        asset_dir_relative = self.get_asset_folder_path(False)
         file_name = '{0}{1}{2}'.format(
             self._hyphenize(split_path[0].lstrip(os.path.sep)),
             self._hyphen,
             split_path[1],
         )
+        root_ext = os.path.splitext(file_name)
+        if not root_ext[1]:
+            file_name = '{0}.html'.format(root_ext[0])
         return {
-            'file_path': os.path.join(asset_dir_absolute, file_name),
-            'doc_path': os.path.join(asset_dir_relative, file_name),
+            'file_path': os.path.join(self.get_asset_folder_path(), file_name),
+            'doc_path': os.path.join(
+                self.get_asset_folder_path(False),
+                file_name,
+            ),
         }
 
     def get_asset_folder_path(self, full: Optional[bool] = True) -> str:

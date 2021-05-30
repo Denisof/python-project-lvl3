@@ -57,7 +57,7 @@ def is_local(page_compoents: ParseResult, url_components: ParseResult) -> bool:
     """
     if not url_components.netloc:
         return True
-    return url_components.netloc.endswith(page_compoents.netloc)
+    return url_components.netloc == page_compoents.netloc
 
 
 def get_assets(document: BeautifulSoup) -> Iterator:
@@ -71,7 +71,7 @@ def get_assets(document: BeautifulSoup) -> Iterator:
     """
     img_elems = document.find_all('img')
     script_elems = document.select('script[src]')
-    link_elems = document.select('link[rel="stylesheet"]')
+    link_elems = document.select('link')
     return chain(
         zip(
             len(img_elems) * (SRC_ATTRIBUTE,),
@@ -101,15 +101,11 @@ def get_asset_url(
     Returns:
         str: [description]
     """
-    netloc = page_compoents.netloc
-    scheme = page_compoents.scheme
-    if url_components.netloc:
-        if url_components.netloc != page_compoents.netloc:
-            netloc = url_components.netloc
-            scheme = url_components.scheme
-    parsed = url_components._replace(  # noqa:WPS437
-        scheme=scheme,
-        netloc=netloc,
+    parsed = page_compoents._replace(  # noqa:WPS437
+        path=url_components.path,
+        params=url_components.params,
+        query=url_components.query,
+        fragment=url_components.fragment,
     )
     return urlunparse(parsed)
 

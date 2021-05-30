@@ -12,11 +12,13 @@ assets_local_list = [
     'page-loader-hexlet-repl-co-assets-application.css',
     'page-loader-hexlet-repl-co-assets-professions-nodejs.png',
     'page-loader-hexlet-repl-co-script.js'
+    'page-loader-hexlet-repl-co-courses.html'
 ]
 assets_remote_list = [
     'assets/professions/nodejs.png',
     'assets/application.css',
-    'script.js'
+    'script.js',
+    'courses'
 ]
 def get_fixture_path(file_name):
     current_dir = os.path.dirname(os.path.abspath(__file__))
