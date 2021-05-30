@@ -12,6 +12,7 @@ from page_loader.path.resolver import Resolver
 
 SRC_ATTRIBUTE = 'src'
 HREF_ATTRIBUTE = 'href'
+BOM = '\xef\xbb\xbf'
 
 
 def parse(
@@ -121,4 +122,4 @@ def load_asset(url: str, file_path: str) -> None:
     asset_content = resourse_loader.download(
         url,
     )
-    resource_saver.save(file_path, str(codecs.BOM_UTF16_LE) + asset_content)
+    resource_saver.save(file_path,  BOM + asset_content)
