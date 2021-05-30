@@ -41,5 +41,4 @@ def download(page_url: str, dist_dir: str) -> str:
     if not page_url.endswith('.html'):
         file_path = '{0}.html'.format(file_path)
     resource_saver.save(file_path, page_content)
-    logger.info(page_content)
     return file_path

@@ -57,7 +57,7 @@ def is_local(page_compoents: ParseResult, url_components: ParseResult) -> bool:
     """
     if not url_components.netloc:
         return True
-    return url_components.netloc == page_compoents.netloc
+    return url_components.netloc.endswith(page_compoents.netloc)
 
 
 def get_assets(document: BeautifulSoup) -> Iterator:
