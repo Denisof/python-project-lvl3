@@ -1,5 +1,4 @@
 """Process html document."""
-import codecs
 from itertools import chain
 from typing import Iterator
 from urllib.parse import ParseResult, urlparse, urlunparse
@@ -122,4 +121,4 @@ def load_asset(url: str, file_path: str) -> None:
     asset_content = resourse_loader.download(
         url,
     )
-    resource_saver.save(file_path,  BOM + asset_content)
+    resource_saver.save(file_path, BOM + asset_content)
