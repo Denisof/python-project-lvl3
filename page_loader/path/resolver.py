@@ -50,7 +50,7 @@ class Resolver(object):
         Returns:
             dict: [description]
         """
-        split_path = os.path.split(self.netloc + path)
+        split_path = os.path.split(path)
         file_name = '{0}{1}{2}'.format(
             self._hyphenize(split_path[0].lstrip(os.path.sep)),
             self._hyphen,

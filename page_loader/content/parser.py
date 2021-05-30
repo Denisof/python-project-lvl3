@@ -35,7 +35,7 @@ def parse(
         if not is_local(page_compoents, link_components):
             continue
         path_dic = path_resolver.get_asset_path(
-            link_components.netloc + link_components.path,
+            page_compoents.netloc + link_components.path,
         )
         load_asset(
             get_asset_url(page_compoents, link_components),
