@@ -101,11 +101,15 @@ def get_asset_url(
     Returns:
         str: [description]
     """
-    parsed = page_compoents._replace(  # noqa:WPS437
-        path=url_components.path,
-        params=url_components.params,
-        query=url_components.query,
-        fragment=url_components.fragment,
+    netloc = page_compoents.netloc
+    scheme = page_compoents.scheme
+    if url_components.netloc:
+        if url_components.netloc != page_compoents.netloc:
+            netloc = url_components.netloc
+            scheme = url_components.scheme
+    parsed = url_components._replace(  # noqa:WPS437
+        scheme=scheme,
+        netloc=netloc,
     )
     return urlunparse(parsed)
 
