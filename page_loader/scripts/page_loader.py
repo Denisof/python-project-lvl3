@@ -24,9 +24,8 @@ def main():
         output_file = download(args.page_url, args.dist_dir)
     except ValueError as error:
         logger.critical(error)
-        sys.exit(1)
+        sys.exit(0)
     print(output_file)
-    sys.exit(0)
 
 
 if __name__ == '__main__':
