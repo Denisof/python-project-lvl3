@@ -17,12 +17,9 @@ def main():
     )
     parser.add_argument('page_url')
     parser.add_argument('dist_dir')
-    args = parser.parse_args()
-    try:
-        args = parser.parse_args()
-    except SystemExit:
-        sys.exit(0)
-        return
+    args, unknown = parser.parse_known_args()
+    if unknown:
+        logger.info('Unknown argument passed')
     try:
         output_file = download(args.page_url, args.dist_dir)
     except ValueError as error:
