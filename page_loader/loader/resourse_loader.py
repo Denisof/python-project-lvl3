@@ -1,5 +1,6 @@
 """Resourse loader."""
 import logging
+from typing import Optional
 
 import requests
 from validators import url as urlvalidate
@@ -13,17 +14,19 @@ logger = logging.getLogger(__name__)
 
 
 @download_bar
-def download(page_url: str) -> str:
+def download(page_url: str, stream: Optional[bool] = True) -> str:
     """Download specified resource.
 
     Args:
-        page_url (str): Page location.
+        page_url (str): [description]
+        stream (Optional[bool], optional): [description]. Defaults to True.
 
     Raises:
-        ValueError: Error description
+        ValueError: [description]
+        ValueError: [description]
 
     Returns:
-        str: Content.
+        str: [description]
     """
     logger.info('Loading %s', page_url)
     try:
@@ -31,11 +34,11 @@ def download(page_url: str) -> str:
     except ValidationFailure:
         logger.error('Url %s is not valid', page_url)
         raise ValueError('The url {0} is not valid '.format(page_url))
-    target_resource = requests.get(page_url)
+    target_resource = requests.get(page_url, stream=stream)
     if target_resource.status_code != HTTP_RESPONSE_OK:
         logger.error(
             'Got %s respone code is not valid',
             target_resource.status_code,
         )
         raise ValueError('Target page {0} is not available '.format(page_url))
-    return target_resource.text
+    return target_resource.raw.data if stream else target_resource.text

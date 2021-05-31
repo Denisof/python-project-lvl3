@@ -25,7 +25,7 @@ def download(page_url: str, dist_dir: str) -> str:
     if not resource_saver.dir_exists(dist_dir):
         raise ValueError('Dir {0} does not exist'.format(dist_dir))
     logger.info('Page {0} loading is started.'.format(page_url))
-    page_content = resourse_loader.download(page_url)
+    page_content = resourse_loader.download(page_url, stream=False)
     url_compoents = urlparse(page_url)
     path_resolver = Resolver(
         url_compoents.netloc,
@@ -40,5 +40,5 @@ def download(page_url: str, dist_dir: str) -> str:
     )
     if not page_url.endswith('.html'):
         file_path = '{0}.html'.format(file_path)
-    resource_saver.save(file_path, page_content)
+    resource_saver.save(file_path, page_content, raw=False)
     return file_path

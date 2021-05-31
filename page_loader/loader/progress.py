@@ -23,17 +23,18 @@ def download_bar(function):
     Returns:
         function: [description]
     """
-    def download_decorator(url: str) -> str:  # noqa:WPS430
+    def download_decorator(*args, **kwargs) -> str:  # noqa:WPS430
         """[summary].
 
         Args:
-            url (str): [description]
+            args (str): [description]
+            kwargs (str): [description]
 
         Returns:
             str: [description]
         """
-        check_box = CheckBox('Loading {0} '.format(url))
-        down_load_result = function(url)
+        check_box = CheckBox('Loading {0} '.format(args[0]))
+        down_load_result = function(*args, **kwargs)
         check_box.next()  # noqa:B305
         check_box.finish()
         return down_load_result

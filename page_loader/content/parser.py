@@ -121,4 +121,4 @@ def load_asset(url: str, file_path: str) -> None:
     asset_content = resourse_loader.download(
         url,
     )
-    resource_saver.save(file_path, BOM + asset_content)
+    resource_saver.save(file_path, asset_content)

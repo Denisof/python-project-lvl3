@@ -1,23 +1,27 @@
 """Save content."""
 import logging
 import os
+from typing import Optional
 
 logger = logging.getLogger(__name__)
+WRITE_MODE = 'w'
 
 
-def save(file_path: str, file_content: str):
+def save(file_path: str, file_content: str, raw: Optional[bool] = True):
     """[summary].
 
     Args:
         file_path (str): [description]
         file_content (str): [description]
+        raw (bool, optional): [description]. Defaults to True.
 
     Raises:
         ValueError: [description]
     """
     logger.info('Writing content to a file %s', file_path)
+    open_mode = '{0}b'.format(WRITE_MODE) if raw else WRITE_MODE
     try:
-        with open(file_path, 'w') as dest_file:
+        with open(file_path, open_mode) as dest_file:
             dest_file.write(file_content)
     except (IOError, PermissionError) as error:
         logger.error('Could not save a file %s', error)
