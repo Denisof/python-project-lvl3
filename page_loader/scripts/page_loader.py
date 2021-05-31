@@ -19,6 +19,11 @@ def main():
     parser.add_argument('dist_dir')
     args = parser.parse_args()
     try:
+        args = parser.parse_args()
+    except SystemExit:
+        sys.exit(0)
+        return
+    try:
         output_file = download(args.page_url, args.dist_dir)
     except ValueError as error:
         logger.critical(error)
